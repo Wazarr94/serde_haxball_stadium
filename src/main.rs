@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::fs::{DirEntry, ReadDir};
 
 use serde::{Deserialize, Serialize};
 
@@ -96,9 +97,9 @@ struct Stadium {
 }
 
 fn main() {
-    let stadium_dir = std::fs::read_dir("stadiums").unwrap();
+    let stadium_dir: ReadDir = std::fs::read_dir("stadiums").unwrap();
     for stadium_file in stadium_dir {
-        let stadium_file = stadium_file.unwrap();
+        let stadium_file: DirEntry = stadium_file.unwrap();
         let stadium_str: String = std::fs::read_to_string(stadium_file.path()).unwrap();
         let stadium_json: Stadium = serde_json::from_str(&stadium_str).unwrap();
         println!("Successfully read {}", &stadium_json.name)
