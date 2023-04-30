@@ -1,9 +1,8 @@
-use std::str::FromStr;
-
-use bevy::math::Vec2;
+use bevy::{math::Vec2, prelude::Color};
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 
-use crate::constants::CollisionFlag;
+use crate::utils::{parse_color, CollisionFlag};
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
@@ -15,7 +14,7 @@ pub struct DiscRaw {
     inv_mass: Option<f32>,
     damping: Option<f32>,
     b_coef: Option<f32>,
-    color: Option<String>,
+    color: Option<Value>,
     c_group: Option<Vec<String>>,
     c_mask: Option<Vec<String>>,
     #[serde(rename = "trait")]
@@ -32,7 +31,7 @@ impl Default for DiscRaw {
             inv_mass: Some(0.0),
             damping: Some(0.99),
             b_coef: Some(0.5),
-            color: Some("FFFFFF".to_string()),
+            color: Some(Value::String("FFFFFF".to_string())),
             c_group: Some(vec!["all".to_string()]),
             c_mask: Some(vec!["all".to_string()]),
             hx_trait: None,
@@ -69,32 +68,32 @@ impl DiscRaw {
             Some(b) => b,
             None => disc_raw.b_coef.unwrap(),
         };
-        let color = match &self.color {
-            Some(c) => c.to_string(),
-            None => disc_raw.color.unwrap(),
+        let color: Color = match &self.color {
+            Some(c) => parse_color(c, true),
+            None => parse_color(&disc_raw.color.unwrap(), true),
         };
         let c_group = match &self.c_group {
             Some(cg) => cg
                 .iter()
-                .map(|s| CollisionFlag::from_str(s).unwrap())
+                .map(|s| s.parse().unwrap())
                 .fold(CollisionFlag::empty(), |acc, x| acc | x),
             None => disc_raw
                 .c_group
                 .unwrap()
                 .iter()
-                .map(|s| CollisionFlag::from_str(s).unwrap())
+                .map(|s| s.parse().unwrap())
                 .fold(CollisionFlag::empty(), |acc, x| acc | x),
         };
         let c_mask = match &self.c_mask {
             Some(cm) => cm
                 .iter()
-                .map(|s| CollisionFlag::from_str(s).unwrap())
+                .map(|s| s.parse().unwrap())
                 .fold(CollisionFlag::empty(), |acc, x| acc | x),
             None => disc_raw
                 .c_mask
                 .unwrap()
                 .iter()
-                .map(|s| CollisionFlag::from_str(s).unwrap())
+                .map(|s| s.parse().unwrap())
                 .fold(CollisionFlag::empty(), |acc, x| acc | x),
         };
         Disc {
@@ -122,7 +121,7 @@ pub struct Disc {
     inv_mass: f32,
     damping: f32,
     b_coef: f32,
-    color: String,
+    color: Color,
     c_group: CollisionFlag,
     c_mask: CollisionFlag,
 }

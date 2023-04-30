@@ -6,13 +6,13 @@ use crate::{
 };
 
 pub mod background;
-pub mod constants;
 pub mod disc;
 pub mod goal;
 pub mod hx_trait;
 pub mod plane;
 pub mod segment;
 pub mod stadium;
+pub mod utils;
 pub mod vertex;
 
 fn main() {

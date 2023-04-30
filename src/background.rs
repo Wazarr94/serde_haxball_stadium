@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
@@ -9,5 +10,5 @@ pub struct BackgroundRaw {
     height: Option<f32>,
     kick_off_radius: f32,
     corner_radius: Option<f32>,
-    color: Option<String>,
+    color: Option<Value>,
 }
