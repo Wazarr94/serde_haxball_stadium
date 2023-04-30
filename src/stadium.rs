@@ -3,7 +3,7 @@ use std::collections::HashMap;
 
 use crate::background::BackgroundRaw;
 use crate::disc::{Disc, DiscRaw};
-use crate::goal::GoalRaw;
+use crate::goal::{Goal, GoalRaw};
 use crate::hx_trait::TraitRaw;
 use crate::plane::PlaneRaw;
 use crate::segment::SegmentRaw;
@@ -28,9 +28,11 @@ pub struct StadiumRaw {
 impl StadiumRaw {
     pub fn to_stadium(&self) -> Stadium {
         let discs: Vec<Disc> = self.discs.iter().map(|d| d.to_disc()).collect();
+        let goals: Vec<Goal> = self.goals.iter().map(|g| g.to_goal()).collect();
         Stadium {
             name: self.name.clone(),
             discs,
+            goals,
         }
     }
 }
@@ -38,4 +40,5 @@ impl StadiumRaw {
 pub struct Stadium {
     pub name: String,
     pub discs: Vec<Disc>,
+    pub goals: Vec<Goal>,
 }

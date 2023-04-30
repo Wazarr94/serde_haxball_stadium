@@ -5,6 +5,7 @@ use serde_json::Value;
 bitflags! {
     #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     pub struct CollisionFlag: u16 {
+        // the keys are uppercase because the parser is case sensitive
         const BALL = 1;
         const RED = 2;
         const BLUE = 4;
@@ -59,4 +60,11 @@ pub fn parse_color(color_val: &Value, transparent_supported: bool) -> Color {
         ),
         _ => panic!("Invalid color value"),
     }
+}
+
+#[derive(Debug)]
+pub enum Team {
+    Spectator = 1,
+    Red = 2,
+    Blue = 3,
 }
