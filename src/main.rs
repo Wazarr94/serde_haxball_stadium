@@ -20,9 +20,10 @@ fn main() {
         let stadium_raw: StadiumRaw = serde_json::from_str(&stadium_str).unwrap();
         let stadium: Stadium = stadium_raw.to_stadium();
         println!("Successfully read {}", &stadium.name);
-        println!("{:#?}", stadium.discs);
-        println!("{:#?}", stadium.goals);
-        println!("{:#?}", stadium.vertexes);
-        println!("{:#?}", stadium.planes);
+        println!("{:#?}", stadium.bg);
+        // println!("{:#?}", stadium.discs);
+        // println!("{:#?}", stadium.goals);
+        // println!("{:#?}", stadium.vertexes);
+        // println!("{:#?}", stadium.planes);
     }
 }

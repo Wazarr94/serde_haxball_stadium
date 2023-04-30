@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
-use crate::background::BackgroundRaw;
+use crate::background::{Background, BackgroundRaw};
 use crate::disc::{Disc, DiscRaw};
 use crate::goal::{Goal, GoalRaw};
 use crate::hx_trait::TraitRaw;
@@ -27,12 +27,14 @@ pub struct StadiumRaw {
 
 impl StadiumRaw {
     pub fn to_stadium(&self) -> Stadium {
+        let bg = self.bg.to_background();
         let discs: Vec<Disc> = self.discs.iter().map(|d| d.to_disc()).collect();
         let goals: Vec<Goal> = self.goals.iter().map(|g| g.to_goal()).collect();
         let vertexes: Vec<Vertex> = self.vertexes.iter().map(|v| v.to_vertex()).collect();
         let planes: Vec<Plane> = self.planes.iter().map(|p| p.to_plane()).collect();
         Stadium {
             name: self.name.clone(),
+            bg,
             discs,
             goals,
             vertexes,
@@ -43,6 +45,7 @@ impl StadiumRaw {
 
 pub struct Stadium {
     pub name: String,
+    pub bg: Background,
     pub discs: Vec<Disc>,
     pub goals: Vec<Goal>,
     pub vertexes: Vec<Vertex>,
