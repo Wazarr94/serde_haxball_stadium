@@ -1,10 +1,6 @@
 use std::fs::{DirEntry, ReadDir};
 
-use crate::{
-    disc::Disc,
-    goal::Goal,
-    stadium::{Stadium, StadiumRaw},
-};
+use crate::stadium::{Stadium, StadiumRaw};
 
 pub mod background;
 pub mod disc;
@@ -23,10 +19,10 @@ fn main() {
         let stadium_str: String = std::fs::read_to_string(stadium_file.path()).unwrap();
         let stadium_raw: StadiumRaw = serde_json::from_str(&stadium_str).unwrap();
         let stadium: Stadium = stadium_raw.to_stadium();
-        let discs: Vec<Disc> = stadium.discs;
-        let goals: Vec<Goal> = stadium.goals;
         println!("Successfully read {}", &stadium.name);
-        println!("{:#?}", discs);
-        println!("{:#?}", goals);
+        println!("{:#?}", stadium.discs);
+        println!("{:#?}", stadium.goals);
+        println!("{:#?}", stadium.vertexes);
+        println!("{:#?}", stadium.planes);
     }
 }
