@@ -1,12 +1,23 @@
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
+use std::collections::HashMap;
 
-#[derive(Serialize, Deserialize, Debug)]
+// check in the game_min.js file if this is complete
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
-pub struct TraitRaw {
-    vis: Option<bool>,
-    b_coef: Option<f32>,
-    c_group: Option<Vec<String>>,
-    c_mask: Option<Vec<String>>,
-    radius: Option<f32>,
-    inv_mass: Option<f32>,
+pub struct Trait {
+    pub vis: Option<bool>,
+    pub b_coef: Option<f32>,
+    pub radius: Option<f32>,
+    pub inv_mass: Option<f32>,
+    pub gravity: Option<[f32; 2]>,
+    pub damping: Option<f32>,
+    pub c_group: Option<Vec<String>>,
+    pub c_mask: Option<Vec<String>>,
+    pub acceleration: Option<f32>,
+    pub color: Option<Value>,
+}
+
+pub trait Traitable {
+    fn apply_trait(&self, traits: &HashMap<String, Trait>) -> Self;
 }
