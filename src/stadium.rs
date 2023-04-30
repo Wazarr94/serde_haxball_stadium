@@ -31,11 +31,10 @@ impl StadiumRaw {
         let bg: Background = self.bg.to_background();
         let discs: Vec<Disc> = self.discs.iter().map(|d| d.to_disc(&traits)).collect();
         let goals: Vec<Goal> = self.goals.iter().map(|g| g.to_goal()).collect();
-        let vertexes: Vec<Vertex> = self.vertexes.iter().map(|v| v.to_vertex()).collect();
-        let planes: Vec<Plane> = self.planes.iter().map(|p| p.to_plane()).collect();
+        let vertexes: Vec<Vertex> = self.vertexes.iter().map(|v| v.to_vertex(&traits)).collect();
+        let planes: Vec<Plane> = self.planes.iter().map(|p| p.to_plane(&traits)).collect();
         Stadium {
             name: self.name.clone(),
-            traits,
             bg,
             discs,
             goals,
@@ -52,5 +51,4 @@ pub struct Stadium {
     pub goals: Vec<Goal>,
     pub vertexes: Vec<Vertex>,
     pub planes: Vec<Plane>,
-    pub traits: HashMap<String, Trait>,
 }

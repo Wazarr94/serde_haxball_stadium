@@ -45,9 +45,10 @@ impl Default for DiscRaw {
 
 impl Traitable for DiscRaw {
     fn apply_trait(&self, traits: &HashMap<String, Trait>) -> DiscRaw {
+        let tr_def: Trait = Trait::default();
         let tr_d: &Trait = match &self.hx_trait {
             Some(tr_name) => traits.get(tr_name).unwrap(),
-            None => panic!("Trait not found"),
+            None => &tr_def,
         };
         let radius: Option<f32> = self.radius.or(tr_d.radius);
         let inv_mass: Option<f32> = self.inv_mass.or(tr_d.inv_mass);

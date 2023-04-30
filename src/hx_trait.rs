@@ -3,7 +3,7 @@ use serde_json::Value;
 use std::collections::HashMap;
 
 // check in the game_min.js file if this is complete
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Trait {
     pub vis: Option<bool>,
