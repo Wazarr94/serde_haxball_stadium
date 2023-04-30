@@ -57,9 +57,9 @@ impl PlaneRaw {
 #[derive(Debug)]
 #[allow(dead_code)]
 pub struct Plane {
-    normal: Vec2,
-    dist: f32,
-    b_coef: f32,
-    c_group: CollisionFlag,
-    c_mask: CollisionFlag,
+    pub normal: Vec2,
+    pub dist: f32,
+    pub b_coef: f32,
+    pub c_group: CollisionFlag,
+    pub c_mask: CollisionFlag,
 }

@@ -21,9 +21,9 @@ fn main() {
         let stadium: Stadium = stadium_raw.to_stadium();
         println!("Successfully read {}", &stadium.name);
         println!("{:#?}", stadium.bg);
-        // println!("{:#?}", stadium.discs);
-        // println!("{:#?}", stadium.goals);
-        // println!("{:#?}", stadium.vertexes);
-        // println!("{:#?}", stadium.planes);
+        println!("{:#?}", stadium.discs);
+        println!("{:#?}", stadium.goals);
+        println!("{:#?}", stadium.vertexes);
+        println!("{:#?}", stadium.planes);
     }
 }

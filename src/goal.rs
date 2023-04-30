@@ -26,7 +26,7 @@ impl GoalRaw {
 #[derive(Debug)]
 #[allow(dead_code)]
 pub struct Goal {
-    p0: Vec2,
-    p1: Vec2,
-    team: Team,
+    pub p0: Vec2,
+    pub p1: Vec2,
+    pub team: Team,
 }

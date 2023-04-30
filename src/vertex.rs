@@ -55,8 +55,8 @@ impl VertexRaw {
 #[derive(Debug)]
 #[allow(dead_code)]
 pub struct Vertex {
-    position: Vec2,
-    b_coef: f32,
-    c_group: CollisionFlag,
-    c_mask: CollisionFlag,
+    pub position: Vec2,
+    pub b_coef: f32,
+    pub c_group: CollisionFlag,
+    pub c_mask: CollisionFlag,
 }

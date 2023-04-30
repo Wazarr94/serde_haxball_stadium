@@ -93,11 +93,11 @@ impl BackgroundRaw {
 #[allow(dead_code)]
 pub struct Background {
     #[serde(rename = "type")]
-    bg_type: BackgroundType,
-    width: f32,
-    height: f32,
-    kick_off_radius: f32,
-    corner_radius: f32,
-    goal_line: f32,
-    color: Color,
+    pub bg_type: BackgroundType,
+    pub width: f32,
+    pub height: f32,
+    pub kick_off_radius: f32,
+    pub corner_radius: f32,
+    pub goal_line: f32,
+    pub color: Color,
 }

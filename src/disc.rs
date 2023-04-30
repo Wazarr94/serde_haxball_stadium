@@ -98,14 +98,14 @@ impl DiscRaw {
 #[derive(Debug)]
 #[allow(dead_code)]
 pub struct Disc {
-    position: Vec2,
-    speed: Vec2,
-    gravity: Vec2,
-    radius: f32,
-    inv_mass: f32,
-    damping: f32,
-    b_coef: f32,
-    color: Color,
-    c_group: CollisionFlag,
-    c_mask: CollisionFlag,
+    pub position: Vec2,
+    pub speed: Vec2,
+    pub gravity: Vec2,
+    pub radius: f32,
+    pub inv_mass: f32,
+    pub damping: f32,
+    pub b_coef: f32,
+    pub color: Color,
+    pub c_group: CollisionFlag,
+    pub c_mask: CollisionFlag,
 }
