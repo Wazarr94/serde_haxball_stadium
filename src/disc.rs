@@ -2,7 +2,7 @@ use bevy::{math::Vec2, prelude::Color};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
-use crate::utils::{parse_color, CollisionFlag};
+use crate::utils::{parse_collision, parse_color, CollisionFlag};
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
@@ -73,28 +73,12 @@ impl DiscRaw {
             None => parse_color(&disc_raw.color.unwrap(), true),
         };
         let c_group = match &self.c_group {
-            Some(cg) => cg
-                .iter()
-                .map(|s| s.parse().unwrap())
-                .fold(CollisionFlag::empty(), |acc, x| acc | x),
-            None => disc_raw
-                .c_group
-                .unwrap()
-                .iter()
-                .map(|s| s.parse().unwrap())
-                .fold(CollisionFlag::empty(), |acc, x| acc | x),
+            Some(cg) => parse_collision(cg),
+            None => parse_collision(&disc_raw.c_group.unwrap()),
         };
         let c_mask = match &self.c_mask {
-            Some(cm) => cm
-                .iter()
-                .map(|s| s.parse().unwrap())
-                .fold(CollisionFlag::empty(), |acc, x| acc | x),
-            None => disc_raw
-                .c_mask
-                .unwrap()
-                .iter()
-                .map(|s| s.parse().unwrap())
-                .fold(CollisionFlag::empty(), |acc, x| acc | x),
+            Some(cm) => parse_collision(cm),
+            None => parse_collision(&disc_raw.c_mask.unwrap()),
         };
         Disc {
             position,

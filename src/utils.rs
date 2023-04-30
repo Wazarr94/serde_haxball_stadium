@@ -62,6 +62,14 @@ pub fn parse_color(color_val: &Value, transparent_supported: bool) -> Color {
     }
 }
 
+pub fn parse_collision(vec: &Vec<String>) -> CollisionFlag {
+    let mut flag = CollisionFlag::empty();
+    for s in vec {
+        flag |= s.parse().unwrap();
+    }
+    flag
+}
+
 #[derive(Debug)]
 pub enum Team {
     Spectator = 1,
