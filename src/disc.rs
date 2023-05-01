@@ -45,19 +45,19 @@ impl Default for DiscRaw {
 
 impl Traitable for DiscRaw {
     fn apply_trait(&self, traits: &HashMap<String, Trait>) -> DiscRaw {
-        let tr_def: Trait = Trait::default();
-        let tr_d: &Trait = match &self.hx_trait {
+        let tr_def = Trait::default();
+        let tr_d = match &self.hx_trait {
             Some(tr_name) => traits.get(tr_name).unwrap(),
             None => &tr_def,
         };
-        let radius: Option<f32> = self.radius.or(tr_d.radius);
-        let inv_mass: Option<f32> = self.inv_mass.or(tr_d.inv_mass);
-        let damping: Option<f32> = self.damping.or(tr_d.damping);
-        let b_coef: Option<f32> = self.b_coef.or(tr_d.b_coef);
-        let color: Option<Value> = self.color.as_ref().or(tr_d.color.as_ref()).cloned();
-        let c_group: Option<Vec<String>> = self.c_group.as_ref().or(tr_d.c_group.as_ref()).cloned();
-        let c_mask: Option<Vec<String>> = self.c_mask.as_ref().or(tr_d.c_mask.as_ref()).cloned();
-        let hx_trait: Option<String> = self.hx_trait.clone();
+        let radius = self.radius.or(tr_d.radius);
+        let inv_mass = self.inv_mass.or(tr_d.inv_mass);
+        let damping = self.damping.or(tr_d.damping);
+        let b_coef = self.b_coef.or(tr_d.b_coef);
+        let color = self.color.as_ref().or(tr_d.color.as_ref()).cloned();
+        let c_group = self.c_group.as_ref().or(tr_d.c_group.as_ref()).cloned();
+        let c_mask = self.c_mask.as_ref().or(tr_d.c_mask.as_ref()).cloned();
+        let hx_trait = self.hx_trait.clone();
         DiscRaw {
             radius,
             inv_mass,
@@ -74,7 +74,6 @@ impl Traitable for DiscRaw {
 
 impl DiscRaw {
     pub fn apply_default(&self) -> DiscRaw {
-        // fill in missing values using the default impl
         let d_def: DiscRaw = DiscRaw::default();
         DiscRaw {
             pos: self.pos,
@@ -92,17 +91,17 @@ impl DiscRaw {
     }
 
     pub fn to_disc(&self, traits: &HashMap<String, Trait>) -> Disc {
-        let disc_raw: DiscRaw = self.apply_trait(traits).apply_default();
-        let position: Vec2 = Vec2::new(disc_raw.pos[0], disc_raw.pos[1]);
-        let speed: Vec2 = Vec2::new(disc_raw.speed.unwrap()[0], disc_raw.speed.unwrap()[1]);
-        let gravity: Vec2 = Vec2::new(disc_raw.gravity.unwrap()[0], disc_raw.gravity.unwrap()[1]);
-        let radius: f32 = disc_raw.radius.unwrap();
-        let inv_mass: f32 = disc_raw.inv_mass.unwrap();
-        let damping: f32 = disc_raw.damping.unwrap();
-        let b_coef: f32 = disc_raw.b_coef.unwrap();
-        let color: Color = parse_color(&disc_raw.color.unwrap(), true);
-        let c_group: CollisionFlag = parse_collision(&disc_raw.c_group.unwrap());
-        let c_mask: CollisionFlag = parse_collision(&disc_raw.c_mask.unwrap());
+        let disc_raw = self.apply_trait(traits).apply_default();
+        let position = Vec2::new(disc_raw.pos[0], disc_raw.pos[1]);
+        let speed = Vec2::new(disc_raw.speed.unwrap()[0], disc_raw.speed.unwrap()[1]);
+        let gravity = Vec2::new(disc_raw.gravity.unwrap()[0], disc_raw.gravity.unwrap()[1]);
+        let radius = disc_raw.radius.unwrap();
+        let inv_mass = disc_raw.inv_mass.unwrap();
+        let damping = disc_raw.damping.unwrap();
+        let b_coef = disc_raw.b_coef.unwrap();
+        let color = parse_color(&disc_raw.color.unwrap(), true);
+        let c_group = parse_collision(&disc_raw.c_group.unwrap());
+        let c_mask = parse_collision(&disc_raw.c_mask.unwrap());
         Disc {
             position,
             speed,

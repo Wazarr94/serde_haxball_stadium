@@ -27,12 +27,12 @@ pub struct StadiumRaw {
 
 impl StadiumRaw {
     pub fn to_stadium(&self) -> Stadium {
-        let traits: HashMap<String, Trait> = self.traits.clone();
-        let bg: Background = self.bg.to_background();
-        let discs: Vec<Disc> = self.discs.iter().map(|d| d.to_disc(&traits)).collect();
-        let goals: Vec<Goal> = self.goals.iter().map(|g| g.to_goal()).collect();
-        let vertexes: Vec<Vertex> = self.vertexes.iter().map(|v| v.to_vertex(&traits)).collect();
-        let planes: Vec<Plane> = self.planes.iter().map(|p| p.to_plane(&traits)).collect();
+        let traits = self.traits.clone();
+        let bg = self.bg.to_background();
+        let discs = self.discs.iter().map(|d| d.to_disc(&traits)).collect();
+        let goals = self.goals.iter().map(|g| g.to_goal()).collect();
+        let vertexes = self.vertexes.iter().map(|v| v.to_vertex(&traits)).collect();
+        let planes = self.planes.iter().map(|p| p.to_plane(&traits)).collect();
         Stadium {
             name: self.name.clone(),
             bg,

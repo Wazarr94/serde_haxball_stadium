@@ -33,15 +33,15 @@ impl Default for VertexRaw {
 
 impl Traitable for VertexRaw {
     fn apply_trait(&self, traits: &HashMap<String, Trait>) -> VertexRaw {
-        let tr_def: Trait = Trait::default();
-        let tr_d: &Trait = match &self.hx_trait {
+        let tr_def = Trait::default();
+        let tr_d = match &self.hx_trait {
             Some(tr_name) => traits.get(tr_name).unwrap(),
             None => &tr_def,
         };
-        let b_coef: Option<f32> = self.b_coef.or(tr_d.b_coef);
-        let c_group: Option<Vec<String>> = self.c_group.as_ref().or(tr_d.c_group.as_ref()).cloned();
-        let c_mask: Option<Vec<String>> = self.c_mask.as_ref().or(tr_d.c_mask.as_ref()).cloned();
-        let hx_trait: Option<String> = self.hx_trait.clone();
+        let b_coef = self.b_coef.or(tr_d.b_coef);
+        let c_group = self.c_group.as_ref().or(tr_d.c_group.as_ref()).cloned();
+        let c_mask = self.c_mask.as_ref().or(tr_d.c_mask.as_ref()).cloned();
+        let hx_trait = self.hx_trait.clone();
         VertexRaw {
             b_coef,
             c_group,
@@ -66,11 +66,11 @@ impl VertexRaw {
     }
 
     pub fn to_vertex(&self, traits: &HashMap<String, Trait>) -> Vertex {
-        let vertex_raw: VertexRaw = self.apply_trait(traits).apply_default();
-        let position: Vec2 = Vec2::new(vertex_raw.x, vertex_raw.y);
-        let b_coef: f32 = vertex_raw.b_coef.unwrap();
-        let c_group: CollisionFlag = parse_collision(&vertex_raw.c_group.unwrap());
-        let c_mask: CollisionFlag = parse_collision(&vertex_raw.c_mask.unwrap());
+        let vertex_raw = self.apply_trait(traits).apply_default();
+        let position = Vec2::new(vertex_raw.x, vertex_raw.y);
+        let b_coef = vertex_raw.b_coef.unwrap();
+        let c_group = parse_collision(&vertex_raw.c_group.unwrap());
+        let c_mask = parse_collision(&vertex_raw.c_mask.unwrap());
         Vertex {
             position,
             b_coef,

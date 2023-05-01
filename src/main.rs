@@ -1,6 +1,6 @@
-use std::fs::{DirEntry, ReadDir};
-
-use crate::stadium::{Stadium, StadiumRaw};
+use crate::stadium::StadiumRaw;
+use std::error::Error;
+use std::fs;
 
 pub mod background;
 pub mod disc;
@@ -12,18 +12,12 @@ pub mod stadium;
 pub mod utils;
 pub mod vertex;
 
-fn main() {
-    let stadium_dir: ReadDir = std::fs::read_dir("stadiums").unwrap();
-    for stadium_file in stadium_dir {
-        let stadium_file: DirEntry = stadium_file.unwrap();
-        let stadium_str: String = std::fs::read_to_string(stadium_file.path()).unwrap();
-        let stadium_raw: StadiumRaw = serde_json::from_str(&stadium_str).unwrap();
-        let stadium: Stadium = stadium_raw.to_stadium();
+fn main() -> Result<(), Box<dyn Error>> {
+    for stadium_file in fs::read_dir("stadiums")? {
+        let stadium_str = fs::read_to_string(stadium_file?.path())?;
+        let stadium_raw: StadiumRaw = serde_json::from_str(&stadium_str)?;
+        let stadium = stadium_raw.to_stadium();
         println!("Successfully read {}", &stadium.name);
-        println!("{:#?}", stadium.bg);
-        println!("{:#?}", stadium.discs);
-        println!("{:#?}", stadium.goals);
-        println!("{:#?}", stadium.vertexes);
-        println!("{:#?}", stadium.planes);
     }
+    Ok(())
 }
