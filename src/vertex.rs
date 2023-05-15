@@ -1,4 +1,4 @@
-use bevy::math::Vec2;
+use bevy::math::DVec2;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
@@ -9,9 +9,9 @@ use crate::{
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct VertexRaw {
-    x: f32,
-    y: f32,
-    b_coef: Option<f32>,
+    x: f64,
+    y: f64,
+    b_coef: Option<f64>,
     c_group: Option<Vec<String>>,
     c_mask: Option<Vec<String>>,
     #[serde(rename = "trait")]
@@ -67,7 +67,7 @@ impl VertexRaw {
 
     pub fn to_vertex(&self, traits: &HashMap<String, Trait>) -> Vertex {
         let vertex_raw = self.apply_trait(traits).apply_default();
-        let position = Vec2::new(vertex_raw.x, vertex_raw.y);
+        let position = DVec2::new(vertex_raw.x, vertex_raw.y);
         let b_coef = vertex_raw.b_coef.unwrap();
         let c_group = parse_collision(&vertex_raw.c_group.unwrap());
         let c_mask = parse_collision(&vertex_raw.c_mask.unwrap());
@@ -83,8 +83,8 @@ impl VertexRaw {
 #[derive(Debug)]
 #[allow(dead_code)]
 pub struct Vertex {
-    pub position: Vec2,
-    pub b_coef: f32,
+    pub position: DVec2,
+    pub b_coef: f64,
     pub c_group: CollisionFlag,
     pub c_mask: CollisionFlag,
 }

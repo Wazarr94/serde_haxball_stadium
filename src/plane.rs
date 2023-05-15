@@ -1,4 +1,4 @@
-use bevy::math::Vec2;
+use bevy::math::DVec2;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
@@ -10,9 +10,9 @@ use crate::{
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct PlaneRaw {
-    normal: [f32; 2],
-    dist: f32,
-    b_coef: Option<f32>,
+    normal: [f64; 2],
+    dist: f64,
+    b_coef: Option<f64>,
     c_group: Option<Vec<String>>,
     c_mask: Option<Vec<String>>,
     #[serde(rename = "trait")]
@@ -68,7 +68,7 @@ impl PlaneRaw {
 
     pub fn to_plane(&self, traits: &HashMap<String, Trait>) -> Plane {
         let plane_raw = self.apply_trait(traits).apply_default();
-        let normal = Vec2::new(plane_raw.normal[0], plane_raw.normal[1]);
+        let normal = DVec2::new(plane_raw.normal[0], plane_raw.normal[1]);
         let dist = plane_raw.dist;
         let b_coef = plane_raw.b_coef.unwrap();
         let c_group = parse_collision(plane_raw.c_group.as_ref().unwrap());
@@ -86,9 +86,9 @@ impl PlaneRaw {
 #[derive(Debug)]
 #[allow(dead_code)]
 pub struct Plane {
-    pub normal: Vec2,
-    pub dist: f32,
-    pub b_coef: f32,
+    pub normal: DVec2,
+    pub dist: f64,
+    pub b_coef: f64,
     pub c_group: CollisionFlag,
     pub c_mask: CollisionFlag,
 }

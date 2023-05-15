@@ -1,4 +1,4 @@
-use bevy::{math::Vec2, prelude::Color};
+use bevy::{math::DVec2, prelude::Color};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
@@ -11,13 +11,13 @@ use crate::{
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct DiscRaw {
-    pos: [f32; 2],
-    speed: Option<[f32; 2]>,
-    gravity: Option<[f32; 2]>,
-    radius: Option<f32>,
-    inv_mass: Option<f32>,
-    damping: Option<f32>,
-    b_coef: Option<f32>,
+    pos: [f64; 2],
+    speed: Option<[f64; 2]>,
+    gravity: Option<[f64; 2]>,
+    radius: Option<f64>,
+    inv_mass: Option<f64>,
+    damping: Option<f64>,
+    b_coef: Option<f64>,
     color: Option<Value>,
     c_group: Option<Vec<String>>,
     c_mask: Option<Vec<String>>,
@@ -92,9 +92,9 @@ impl DiscRaw {
 
     pub fn to_disc(&self, traits: &HashMap<String, Trait>) -> Disc {
         let disc_raw = self.apply_trait(traits).apply_default();
-        let position = Vec2::new(disc_raw.pos[0], disc_raw.pos[1]);
-        let speed = Vec2::new(disc_raw.speed.unwrap()[0], disc_raw.speed.unwrap()[1]);
-        let gravity = Vec2::new(disc_raw.gravity.unwrap()[0], disc_raw.gravity.unwrap()[1]);
+        let position = DVec2::new(disc_raw.pos[0], disc_raw.pos[1]);
+        let speed = DVec2::new(disc_raw.speed.unwrap()[0], disc_raw.speed.unwrap()[1]);
+        let gravity = DVec2::new(disc_raw.gravity.unwrap()[0], disc_raw.gravity.unwrap()[1]);
         let radius = disc_raw.radius.unwrap();
         let inv_mass = disc_raw.inv_mass.unwrap();
         let damping = disc_raw.damping.unwrap();
@@ -120,13 +120,13 @@ impl DiscRaw {
 #[derive(Debug)]
 #[allow(dead_code)]
 pub struct Disc {
-    pub position: Vec2,
-    pub speed: Vec2,
-    pub gravity: Vec2,
-    pub radius: f32,
-    pub inv_mass: f32,
-    pub damping: f32,
-    pub b_coef: f32,
+    pub position: DVec2,
+    pub speed: DVec2,
+    pub gravity: DVec2,
+    pub radius: f64,
+    pub inv_mass: f64,
+    pub damping: f64,
+    pub b_coef: f64,
     pub color: Color,
     pub c_group: CollisionFlag,
     pub c_mask: CollisionFlag,

@@ -16,11 +16,11 @@ pub enum BackgroundType {
 pub struct BackgroundRaw {
     #[serde(rename = "type")]
     bg_type: Option<String>,
-    width: Option<f32>,
-    height: Option<f32>,
-    kick_off_radius: Option<f32>,
-    corner_radius: Option<f32>,
-    goal_line: Option<f32>,
+    width: Option<f64>,
+    height: Option<f64>,
+    kick_off_radius: Option<f64>,
+    corner_radius: Option<f64>,
+    goal_line: Option<f64>,
     color: Option<Value>,
 }
 
@@ -94,10 +94,10 @@ impl BackgroundRaw {
 pub struct Background {
     #[serde(rename = "type")]
     pub bg_type: BackgroundType,
-    pub width: f32,
-    pub height: f32,
-    pub kick_off_radius: f32,
-    pub corner_radius: f32,
-    pub goal_line: f32,
+    pub width: f64,
+    pub height: f64,
+    pub kick_off_radius: f64,
+    pub corner_radius: f64,
+    pub goal_line: f64,
     pub color: Color,
 }

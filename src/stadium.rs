@@ -6,16 +6,16 @@ use crate::disc::{Disc, DiscRaw};
 use crate::goal::{Goal, GoalRaw};
 use crate::hx_trait::Trait;
 use crate::plane::{Plane, PlaneRaw};
-use crate::segment::SegmentRaw;
+use crate::segment::{Segment, SegmentRaw};
 use crate::vertex::{Vertex, VertexRaw};
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct StadiumRaw {
     name: String,
-    height: f32,
-    width: f32,
-    spawn_distance: f32,
+    height: f64,
+    width: f64,
+    spawn_distance: f64,
     bg: BackgroundRaw,
     discs: Vec<DiscRaw>,
     vertexes: Vec<VertexRaw>,
@@ -33,6 +33,11 @@ impl StadiumRaw {
         let goals = self.goals.iter().map(|g| g.to_goal()).collect();
         let vertexes = self.vertexes.iter().map(|v| v.to_vertex(&traits)).collect();
         let planes = self.planes.iter().map(|p| p.to_plane(&traits)).collect();
+        let segments = self
+            .segments
+            .iter()
+            .map(|s| s.to_segment(&traits))
+            .collect();
         Stadium {
             name: self.name.clone(),
             bg,
@@ -40,6 +45,7 @@ impl StadiumRaw {
             goals,
             vertexes,
             planes,
+            segments,
         }
     }
 }
@@ -51,4 +57,5 @@ pub struct Stadium {
     pub goals: Vec<Goal>,
     pub vertexes: Vec<Vertex>,
     pub planes: Vec<Plane>,
+    pub segments: Vec<Segment>,
 }
