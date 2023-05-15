@@ -1845,6 +1845,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "jsonc-parser"
+version = "0.21.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7b56a20e76235284255a09fcd1f45cf55d3c524ea657ebd3854735925c57743d"
+dependencies = [
+ "serde_json",
+]
+
+[[package]]
 name = "khronos-egl"
 version = "4.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2641,6 +2650,7 @@ version = "0.1.0"
 dependencies = [
  "bevy",
  "bitflags 2.2.1",
+ "jsonc-parser",
  "serde",
  "serde_json",
 ]
