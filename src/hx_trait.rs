@@ -23,6 +23,30 @@ pub struct Trait {
     pub curve_f: Option<f64>,
 }
 
+pub fn handle_traits(hx_traits: Value) -> HashMap<String, Trait> {
+    match hx_traits {
+        Value::Object(map) => {
+            return map.into_iter().fold(HashMap::new(), |mut acc, (k, v)| {
+                acc.insert(k, serde_json::from_value(v).unwrap());
+                acc
+            })
+        }
+        Value::Array(sequence) => {
+            // Handle empty sequence case
+            if sequence.is_empty() {
+                HashMap::new()
+            } else {
+                println!("Invalid property format");
+                HashMap::new()
+            }
+        }
+        _ => {
+            println!("Invalid property format");
+            HashMap::new()
+        }
+    }
+}
+
 pub trait Traitable {
     fn apply_trait(&self, traits: &HashMap<String, Trait>) -> Self;
 }

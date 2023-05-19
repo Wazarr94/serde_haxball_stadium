@@ -1,10 +1,10 @@
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
+use serde_json::Value;
 
 use crate::background::{Background, BackgroundRaw};
 use crate::disc::{Disc, DiscRaw};
 use crate::goal::{Goal, GoalRaw};
-use crate::hx_trait::Trait;
+use crate::hx_trait::handle_traits;
 use crate::plane::{Plane, PlaneRaw};
 use crate::segment::{Segment, SegmentRaw};
 use crate::vertex::{Vertex, VertexRaw};
@@ -22,12 +22,12 @@ pub struct StadiumRaw {
     segments: Vec<SegmentRaw>,
     goals: Vec<GoalRaw>,
     planes: Vec<PlaneRaw>,
-    traits: HashMap<String, Trait>,
+    traits: Value,
 }
 
 impl StadiumRaw {
     pub fn to_stadium(&self) -> Stadium {
-        let traits = self.traits.clone();
+        let traits = handle_traits(self.traits.clone());
         let bg = self.bg.to_background();
         let discs = self.discs.iter().map(|d| d.to_disc(&traits)).collect();
         let goals = self.goals.iter().map(|g| g.to_goal()).collect();

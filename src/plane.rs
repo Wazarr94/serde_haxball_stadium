@@ -36,7 +36,7 @@ impl Traitable for PlaneRaw {
     fn apply_trait(&self, traits: &HashMap<String, Trait>) -> PlaneRaw {
         let tr_def = Trait::default();
         let tr_d = match &self.hx_trait {
-            Some(tr_name) => traits.get(tr_name).unwrap(),
+            Some(tr_name) => traits.get(tr_name).unwrap_or(&tr_def),
             None => &tr_def,
         };
         let b_coef = self.b_coef.or(tr_d.b_coef);

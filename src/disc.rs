@@ -47,7 +47,7 @@ impl Traitable for DiscRaw {
     fn apply_trait(&self, traits: &HashMap<String, Trait>) -> DiscRaw {
         let tr_def = Trait::default();
         let tr_d = match &self.hx_trait {
-            Some(tr_name) => traits.get(tr_name).unwrap(),
+            Some(tr_name) => traits.get(tr_name).unwrap_or(&tr_def),
             None => &tr_def,
         };
         let radius = self.radius.or(tr_d.radius);
