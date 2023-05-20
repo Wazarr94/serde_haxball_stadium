@@ -11,18 +11,18 @@ use crate::{
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct DiscRaw {
-    pos: [f64; 2],
-    speed: Option<[f64; 2]>,
-    gravity: Option<[f64; 2]>,
-    radius: Option<f64>,
-    inv_mass: Option<f64>,
-    damping: Option<f64>,
-    b_coef: Option<f64>,
-    color: Option<Value>,
-    c_group: Option<Vec<String>>,
-    c_mask: Option<Vec<String>>,
+    pub pos: [f64; 2],
+    pub speed: Option<[f64; 2]>,
+    pub gravity: Option<[f64; 2]>,
+    pub radius: Option<f64>,
+    pub inv_mass: Option<f64>,
+    pub damping: Option<f64>,
+    pub b_coef: Option<f64>,
+    pub color: Option<Value>,
+    pub c_group: Option<Vec<String>>,
+    pub c_mask: Option<Vec<String>>,
     #[serde(rename = "trait")]
-    hx_trait: Option<String>,
+    pub hx_trait: Option<String>,
 }
 
 impl Default for DiscRaw {
@@ -117,7 +117,7 @@ impl DiscRaw {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 #[allow(dead_code)]
 pub struct Disc {
     pub position: DVec2,
