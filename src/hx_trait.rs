@@ -25,12 +25,10 @@ pub struct Trait {
 
 pub fn handle_traits(hx_traits: Value) -> HashMap<String, Trait> {
     match hx_traits {
-        Value::Object(map) => {
-            return map.into_iter().fold(HashMap::new(), |mut acc, (k, v)| {
-                acc.insert(k, serde_json::from_value(v).unwrap());
-                acc
-            })
-        }
+        Value::Object(map) => map.into_iter().fold(HashMap::new(), |mut acc, (k, v)| {
+            acc.insert(k, serde_json::from_value(v).unwrap());
+            acc
+        }),
         Value::Array(sequence) => {
             // Handle empty sequence case
             if sequence.is_empty() {

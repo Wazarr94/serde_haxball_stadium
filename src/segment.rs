@@ -194,7 +194,7 @@ impl CurvedSegment {
         if curve_value > lim_inf && curve_value < lim_sup {
             curve_value = 1.0 / (curve_value / 2.0).tan();
         }
-        return curve_value;
+        curve_value
     }
 
     pub fn circle_center(&self, vertexes: &[Vertex]) -> DVec2 {
@@ -209,8 +209,8 @@ impl CurvedSegment {
     pub fn circle_radius(&self, vertexes: &[Vertex]) -> f64 {
         let pos_0 = vertexes[self.vertex_indices.0].position;
         let center = self.circle_center(vertexes);
-        let radius = (pos_0 - center).length();
-        radius
+
+        (pos_0 - center).length()
     }
 
     pub fn circle_tangeants(&self, vertexes: &[Vertex]) -> (DVec2, DVec2) {

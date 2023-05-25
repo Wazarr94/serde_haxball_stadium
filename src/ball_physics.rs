@@ -19,7 +19,7 @@ pub fn handle_ball(
                 ..Default::default()
             };
             let disc = disc_raw.to_disc(traits);
-            return Ball(disc);
+            Ball(disc)
         }
         Some(Value::String(s)) => {
             if s == "disc0" {

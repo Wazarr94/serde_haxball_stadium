@@ -46,7 +46,7 @@ pub fn parse_color(color_val: &Value, transparent_supported: bool) -> Color {
             } else if s == "transparent" {
                 Color::rgba_u8(0, 0, 0, 0)
             } else {
-                let hex = u32::from_str_radix(&s, 16).unwrap();
+                let hex = u32::from_str_radix(s, 16).unwrap();
                 let r: u8 = ((hex >> 16) & 0xFF) as u8;
                 let g: u8 = ((hex >> 8) & 0xFF) as u8;
                 let b: u8 = (hex & 0xFF) as u8;
