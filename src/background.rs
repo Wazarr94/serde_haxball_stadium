@@ -11,7 +11,7 @@ pub enum BackgroundType {
     Hockey,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct BackgroundRaw {
     #[serde(rename = "type")]

@@ -8,7 +8,7 @@ use crate::{
     utils::{parse_collision, parse_color, CollisionFlag},
 };
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct DiscRaw {
     pub pos: [f64; 2],
@@ -92,9 +92,9 @@ impl DiscRaw {
 
     pub fn to_disc(&self, traits: &HashMap<String, Trait>) -> Disc {
         let disc_raw = self.apply_trait(traits).apply_default();
-        let position = DVec2::new(disc_raw.pos[0], disc_raw.pos[1]);
-        let speed = DVec2::new(disc_raw.speed.unwrap()[0], disc_raw.speed.unwrap()[1]);
-        let gravity = DVec2::new(disc_raw.gravity.unwrap()[0], disc_raw.gravity.unwrap()[1]);
+        let position = DVec2::from(disc_raw.pos);
+        let speed = DVec2::from(disc_raw.speed.unwrap());
+        let gravity = DVec2::from(disc_raw.gravity.unwrap());
         let radius = disc_raw.radius.unwrap();
         let inv_mass = disc_raw.inv_mass.unwrap();
         let damping = disc_raw.damping.unwrap();

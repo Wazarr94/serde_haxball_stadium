@@ -1,12 +1,32 @@
+use bevy::{math::DVec2, prelude::Color};
 use serde_json::Value;
 use std::collections::HashMap;
 
 use crate::{
     disc::{Disc, DiscRaw},
     hx_trait::Trait,
+    utils::CollisionFlag,
 };
 
 pub struct Ball(Disc);
+
+impl Default for Ball {
+    fn default() -> Self {
+        let ball_disc = Disc {
+            position: DVec2::ZERO,
+            speed: DVec2::ZERO,
+            gravity: DVec2::ZERO,
+            radius: 10.0,
+            inv_mass: 1.0,
+            damping: 0.99,
+            b_coef: 0.5,
+            color: Color::WHITE,
+            c_group: CollisionFlag::BALL,
+            c_mask: CollisionFlag::ALL,
+        };
+        Ball(ball_disc)
+    }
+}
 
 pub fn handle_ball(
     ball: &Option<Value>,
@@ -14,13 +34,7 @@ pub fn handle_ball(
     traits: &HashMap<String, Trait>,
 ) -> Ball {
     match ball.as_ref() {
-        None => {
-            let disc_raw = DiscRaw {
-                ..Default::default()
-            };
-            let disc = disc_raw.to_disc(traits);
-            Ball(disc)
-        }
+        None => Ball::default(),
         Some(Value::String(s)) => {
             if s == "disc0" {
                 let disc = discs.remove(0);

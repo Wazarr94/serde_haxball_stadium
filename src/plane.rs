@@ -7,7 +7,7 @@ use crate::{
     utils::{parse_collision, CollisionFlag},
 };
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct PlaneRaw {
     normal: [f64; 2],
@@ -68,7 +68,7 @@ impl PlaneRaw {
 
     pub fn to_plane(&self, traits: &HashMap<String, Trait>) -> Plane {
         let plane_raw = self.apply_trait(traits).apply_default();
-        let normal = DVec2::new(plane_raw.normal[0], plane_raw.normal[1]);
+        let normal = DVec2::from(plane_raw.normal);
         let dist = plane_raw.dist;
         let b_coef = plane_raw.b_coef.unwrap();
         let c_group = parse_collision(plane_raw.c_group.as_ref().unwrap());

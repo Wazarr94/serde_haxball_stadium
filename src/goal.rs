@@ -2,7 +2,7 @@ use crate::utils::Team;
 use bevy::math::DVec2;
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct GoalRaw {
     p0: [f64; 2],
     p1: [f64; 2],
@@ -12,8 +12,8 @@ pub struct GoalRaw {
 impl GoalRaw {
     pub fn to_goal(&self) -> Goal {
         Goal {
-            p0: DVec2::new(self.p0[0], self.p0[1]),
-            p1: DVec2::new(self.p1[0], self.p1[1]),
+            p0: DVec2::from(self.p0),
+            p1: DVec2::from(self.p1),
             team: match self.team.as_str() {
                 "red" => Team::Red,
                 "blue" => Team::Blue,

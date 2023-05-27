@@ -6,7 +6,7 @@ use crate::{
     hx_trait::{Trait, Traitable},
     utils::{parse_collision, CollisionFlag},
 };
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct VertexRaw {
     x: f64,
